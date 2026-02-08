@@ -1,1093 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Margadarshak - मार्गदर्शक</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margadarshak - मार्गदर्शक</title>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            min-height: 100vh;
-            color: #333;
-        }
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
 
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
+body{
+    font-family:'Inter','Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#e8f5e9,#e3f2fd);
+    min-height:100vh;
+    color:#1f2937;
+}
 
-        .header {
-            background: linear-gradient(135deg, #2E7D32, #4CAF50);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+.container{
+    max-width:420px;
+    margin:auto;
+    background:#fff;
+    min-height:100vh;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
 
-        .header h1 {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-        }
+/* HEADER */
+.header{
+    background:linear-gradient(135deg,#1b5e20,#43a047);
+    color:white;
+    padding:22px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
 
-        .header p {
-            font-size: 0.9rem;
-            opacity: 0.9;
-        }
+.header h1{font-size:1.6rem}
+.header p{opacity:.9;font-size:.9rem}
 
-        .language-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.2);
-            border: none;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
+.language-toggle{
+    position:absolute;
+    right:18px;
+    top:18px;
+    background:rgba(255,255,255,0.2);
+    border:none;
+    padding:6px 12px;
+    border-radius:20px;
+    color:white;
+    cursor:pointer;
+}
 
-        .main-content {
-            padding: 20px;
-        }
+/* CONTENT */
+.main-content{padding:20px}
 
-        .feature-card {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            border-left: 4px solid #4CAF50;
-        }
+/* TABS */
+.tabs{
+    display:flex;
+    background:#f1f5f9;
+    border-radius:30px;
+    padding:6px;
+    margin-bottom:20px;
+}
 
-        .feature-card h3 {
-            color: #2E7D32;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        } 
+.tab{
+    flex:1;
+    text-align:center;
+    padding:10px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.25s;
+    font-weight:500;
+}
 
-        .icon {
-            width: 24px;
-            height: 24px;
-            background: #4CAF50;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 14px;
-        }
+.tab.active{
+    background:white;
+    color:#2e7d32;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
 
-        .input-group {
-            margin-bottom: 15px;
-        }
+/* CARDS */
+.feature-card,.recommendation-card{
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:16px;
+    border:1px solid rgba(0,0,0,0.05);
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
 
-        .input-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: #2E7D32;
-        }
+.feature-card h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#1b5e20;
+    margin-bottom:12px;
+}
 
-        .input-group select, .input-group input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: border-color 0.3s;
-        }
+.icon{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#43a047;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
 
-        .input-group select:focus, .input-group input:focus {
-            outline: none;
-            border-color: #4CAF50;
-        }
+/* INPUTS */
+.input-group{margin-bottom:14px}
 
-        .btn {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            margin: 10px 0;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
+.input-group label{
+    font-weight:600;
+    font-size:.9rem;
+}
 
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
-        }
+.input-group select,
+.input-group input{
+    width:100%;
+    padding:13px;
+    margin-top:6px;
+    border-radius:10px;
+    border:1.5px solid #e5e7eb;
+    font-size:15px;
+}
 
-        .btn:active {
-            transform: translateY(0);
-        }
+.input-group select:focus,
+.input-group input:focus{
+    outline:none;
+    border-color:#43a047;
+}
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #FF9800, #F57C00);
-        }
+/* BUTTON */
+.btn{
+    background:linear-gradient(135deg,#43a047,#2e7d32);
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:30px;
+    font-size:15px;
+    cursor:pointer;
+    width:100%;
+}
 
-        .btn-voice {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-        }
+.btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 14px rgba(46,125,50,.25);
+}
 
-        .recommendation-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            border-left: 4px solid #4CAF50;
-        }
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
 
-        .crop-recommendation {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+.stat-card{
+    background:#f9fafb;
+    border-radius:12px;
+    padding:14px;
+    text-align:center;
+}
 
-        .crop-icon {
-            width: 50px;
-            height: 50px;
-            background: #4CAF50;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
+.stat-value{
+    font-size:1.4rem;
+    font-weight:700;
+    color:#2e7d32;
+}
 
-        .weather-info {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin: 15px 0;
-            text-align: center;
-        }
+.stat-label{
+    font-size:.8rem;
+    color:#6b7280;
+}
 
-        .offline-indicator {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #FF5722;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: none;
-        }
+/* CHAT */
+.chat-container{
+    max-height:300px;
+    overflow-y:auto;
+    border-radius:12px;
+    background:#f8fafc;
+    padding:12px;
+}
 
-        .online-indicator {
-            background: #4CAF50;
-        }
+.message{
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:8px;
+}
 
-        .tabs {
-            display: flex;
-            background: #f5f5f5;
-            border-radius: 25px;
-            padding: 5px;
-            margin-bottom: 20px;
-        }
+.user-message{
+    background:#43a047;
+    color:white;
+    margin-left:20%;
+}
 
-        .tab {
-            flex: 1;
-            padding: 10px;
-            text-align: center;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
+.bot-message{
+    background:white;
+    border:1px solid #e5e7eb;
+    margin-right:20%;
+}
 
-        .tab.active {
-            background: #4CAF50;
-            color: white;
-        }
+/* WEATHER */
+.weather-info{
+    background:linear-gradient(135deg,#1e88e5,#1565c0);
+    color:white;
+    border-radius:14px;
+    padding:16px;
+    text-align:center;
+}
 
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .chat-container {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 2px solid #ddd;
-            border-radius: 10px;
-            padding: 15px;
-            background: #f9f9f9;
-        }
-
-        .message {
-            margin-bottom: 10px;
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .user-message {
-            background: #4CAF50;
-            color: white;
-            margin-left: 20%;
-        }
-
-        .bot-message {
-            background: white;
-            border: 1px solid #ddd;
-            margin-right: 20%;
-        }
-
-        .voice-button {
-            position: fixed;
-            bottom: 80px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-            border: none;
-            border-radius: 50%;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-            z-index: 1000;
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .stat-value {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #4CAF50;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            color: #666;
-        }
-
-        /* Hindi font support */
-        .hindi {
-            font-family: 'Devanagari', 'Arial Unicode MS', sans-serif;
-        }
-    </style>
+.offline-indicator{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#ef4444;
+    color:white;
+    padding:10px 14px;
+    border-radius:20px;
+    font-size:.8rem;
+    display:none;
+}
+</style>
 </head>
+
 <body>
-    <div class="container">
-        <header class="header">
-            <button class="language-toggle" onclick="toggleLanguage()">हिंदी</button>
-            <h1 id="appTitle">Margadarshak</h1>
-            <p id="appSubtitle">AI-Powered Crop Advisor for Jharkhand Farmers</p>
-        </header>
 
-        <div class="main-content">
-            <!-- Navigation Tabs -->
-            <div class="tabs">
-                <div class="tab active" onclick="switchTab('home')">
-                    <span id="homeTab">🏠 Home</span>
-                </div>
-                <div class="tab" onclick="switchTab('chat')">
-                    <span id="chatTab">💬 Chat</span>
-                </div>
-                <div class="tab" onclick="switchTab('weather')">
-                    <span id="weatherTab">🌤️ Weather</span>
-                </div>
-            </div>
+<div class="container">
 
-            <!-- Home Tab Content -->
-            <div id="homeContent" class="tab-content active">
-                <!-- Soil Analysis Card -->
-                <div class="feature-card">
-                    <h3>
-                        <span class="icon">🌱</span>
-                        <span id="soilAnalysisTitle">Soil Analysis</span>
-                    </h3>
-                    
-                    <div class="input-group">
-                        <label id="districtLabel">Select Your District:</label>
-                        <select id="district">
-                            <option value="">Choose District</option>
-                            <option value="ranchi">Ranchi</option>
-                            <option value="dhanbad">Dhanbad</option>
-                            <option value="jamshedpur">Jamshedpur</option>
-                            <option value="bokaro">Bokaro</option>
-                            <option value="deoghar">Deoghar</option>
-                            <option value="hazaribagh">Hazaribagh</option>
-                        </select>
-                    </div>
+<header class="header">
+<button class="language-toggle" onclick="toggleLanguage()">हिंदी</button>
+<h1 id="appTitle">Margadarshak</h1>
+<p id="appSubtitle">AI-Powered Crop Advisor for Jharkhand Farmers</p>
+</header>
 
-                    <div class="input-group">
-                        <label id="soilTypeLabel">Soil Type:</label>
-                        <select id="soilType">
-                            <option value="">Select Soil Type</option>
-                            <option value="red">Red Soil (लाल मिट्टी)</option>
-                            <option value="black">Black Soil (काली मिट्टी)</option>
-                            <option value="clay">Clay Soil (चिकनी मिट्टी)</option>
-                            <option value="sandy">Sandy Soil (बलुई मिट्टी)</option>
-                        </select>
-                    </div>
+<div class="main-content">
 
-                    <div class="input-group">
-                        <label id="farmSizeLabel">Farm Size (in acres):</label>
-                        <input type="number" id="farmSize" placeholder="Enter farm size" min="0.1" step="0.1">
-                    </div>
+<!-- TABS -->
+<div class="tabs">
+<div class="tab active" onclick="switchTab('home')"><span id="homeTab">🏠 Home</span></div>
+<div class="tab" onclick="switchTab('chat')"><span id="chatTab">💬 Chat</span></div>
+<div class="tab" onclick="switchTab('weather')"><span id="weatherTab">🌤️ Weather</span></div>
+</div>
 
-                    <div class="input-group">
-                        <label id="budgetLabel">Budget (₹):</label>
-                        <input type="number" id="budget" placeholder="Enter your budget" min="1000">
-                    </div>
+<!-- HOME -->
+<div id="homeContent" class="tab-content active">
 
-                    <button class="btn" onclick="getCropRecommendation()">
-                        <span id="getRecommendationBtn">🔍 Get Crop Recommendations</span>
-                    </button>
-                </div>
+<div class="feature-card">
+<h3><span class="icon">🌱</span><span id="soilAnalysisTitle">Soil Analysis</span></h3>
 
-                <!-- Recommendation Results -->
-                <div id="recommendationResults" style="display: none;">
-                    <div class="recommendation-card">
-                        <h3 id="recommendationTitle">🎯 Recommended Crops</h3>
-                        <div id="cropList"></div>
-                        
-                        <div class="grid">
-                            <div class="stat-card">
-                                <div class="stat-value" id="expectedYield">0</div>
-                                <div class="stat-label" id="yieldLabel">Expected Yield (kg)</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="expectedProfit">₹0</div>
-                                <div class="stat-label" id="profitLabel">Expected Profit</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="sustainabilityScore">0</div>
-                                <div class="stat-label" id="sustainabilityLabel">Sustainability Score</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-value" id="plantingTime">-</div>
-                                <div class="stat-label" id="timingLabel">Best Planting Time</div>
-                            </div>
-                        </div>
+<div class="input-group">
+<label id="districtLabel">Select Your District:</label>
+<select id="district">
+<option value="">Choose District</option>
+</select>
+</div>
 
-                        <div id="detailedAdvice" style="margin-top: 15px;"></div>
-                    </div>
-                </div>
-            </div>
+<div class="input-group">
+<label id="soilTypeLabel">Soil Type:</label>
+<select id="soilType">
+<option value="">Select Soil Type</option>
+<option value="red">Red Soil</option>
+<option value="black">Black Soil</option>
+<option value="clay">Clay Soil</option>
+<option value="sandy">Sandy Soil</option>
+</select>
+</div>
 
-            <!-- Chat Tab Content -->
-            <div id="chatContent" class="tab-content">
-                <div class="feature-card">
-                    <h3>
-                        <span class="icon">🤖</span>
-                        <span id="aiChatTitle">AI Assistant</span>
-                    </h3>
-                    
-                    <div class="chat-container" id="chatContainer">
-                        <div class="message bot-message">
-                            <span id="welcomeMessage">Hello! I'm your farming assistant. Ask me anything about crops, soil, or farming in Jharkhand!</span>
-                        </div>
-                    </div>
-                    
-                    <div class="input-group" style="margin-top: 15px;">
-                        <input type="text" id="chatInput" placeholder="Ask your farming question..." onkeypress="handleChatKeypress(event)">
-                        <button class="btn" onclick="sendMessage()">
-                            <span id="sendBtn">📤 Send</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
+<div class="input-group">
+<label id="farmSizeLabel">Farm Size (in acres):</label>
+<input type="number" id="farmSize">
+</div>
 
-            <!-- Weather Tab Content -->
-            <div id="weatherContent" class="tab-content">
-                <div class="weather-info">
-                    <h3 id="weatherTitle">🌤️ Today's Weather</h3>
-                    <div id="weatherData">
-                        <p><strong>Temperature:</strong> <span id="temperature">28°C</span></p>
-                        <p><strong>Humidity:</strong> <span id="humidity">65%</span></p>
-                        <p><strong>Rainfall:</strong> <span id="rainfall">Light</span></p>
-                        <p><strong>Wind:</strong> <span id="windSpeed">12 km/h</span></p>
-                    </div>
-                </div>
+<div class="input-group">
+<label id="budgetLabel">Budget (₹):</label>
+<input type="number" id="budget">
+</div>
 
-                <div class="feature-card">
-                    <h3>
-                        <span class="icon">💰</span>
-                        <span id="marketPricesTitle">Market Prices</span>
-                    </h3>
-                    <div id="marketPrices">
-                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                            <span>Rice (चावल):</span>
-                            <strong>₹25/kg</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                            <span>Wheat (गेहूं):</span>
-                            <strong>₹22/kg</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                            <span>Maize (मक्का):</span>
-                            <strong>₹18/kg</strong>
-                        </div>
-                        <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                            <span>Pulses (दाल):</span>
-                            <strong>₹80/kg</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<button class="btn" onclick="getCropRecommendation()">
+<span id="getRecommendationBtn">🔍 Get Crop Recommendations</span>
+</button>
+</div>
 
-        <!-- Voice Button -->
-        <button class="voice-button" onclick="toggleVoiceRecording()" id="voiceBtn">
-            🎤
-        </button>
+<div id="recommendationResults" style="display:none;">
+<div class="recommendation-card">
+<h3 id="recommendationTitle">🎯 Recommended Crops</h3>
+<div id="cropList"></div>
 
-        <!-- Offline Indicator -->
-        <div class="offline-indicator" id="offlineIndicator">
-            📶 Offline Mode
-        </div>
-    </div>
+<div class="grid">
+<div class="stat-card">
+<div class="stat-value" id="expectedYield">0</div>
+<div class="stat-label" id="yieldLabel">Expected Yield</div>
+</div>
 
-    <script>
-        // Language Toggle
-        let isHindi = false;
-        const translations = {
-            english: {
-                appTitle: "Margadarshak",
-                appSubtitle: "AI-Powered Crop Advisor for Jharkhand Farmers",
-                homeTab: "🏠 Home",
-                chatTab: "💬 Chat",
-                weatherTab: "🌤️ Weather",
-                soilAnalysisTitle: "Soil Analysis",
-                districtLabel: "Select Your District:",
-                soilTypeLabel: "Soil Type:",
-                farmSizeLabel: "Farm Size (in acres):",
-                budgetLabel: "Budget (₹):",
-                getRecommendationBtn: "🔍 Get Crop Recommendations",
-                recommendationTitle: "🎯 Recommended Crops",
-                yieldLabel: "Expected Yield (kg)",
-                profitLabel: "Expected Profit",
-                sustainabilityLabel: "Sustainability Score",
-                timingLabel: "Best Planting Time",
-                aiChatTitle: "AI Assistant",
-                welcomeMessage: "Hello! I'm your farming assistant. Ask me anything about crops, soil, or farming in Jharkhand!",
-                sendBtn: "📤 Send",
-                weatherTitle: "🌤️ Today's Weather",
-                marketPricesTitle: "Market Prices"
-            },
-            hindi: {
-                appTitle: "मार्गदर्शक",
-                appSubtitle: "झारखंड के किसानों के लिए AI फसल सलाहकार",
-                homeTab: "🏠 होम",
-                chatTab: "💬 चैट",
-                weatherTab: "🌤️ मौसम",
-                soilAnalysisTitle: "मिट्टी विश्लेषण",
-                districtLabel: "अपना जिला चुनें:",
-                soilTypeLabel: "मिट्टी का प्रकार:",
-                farmSizeLabel: "खेत का आकार (एकड़ में):",
-                budgetLabel: "बजट (₹):",
-                getRecommendationBtn: "🔍 फसल सुझाव प्राप्त करें",
-                recommendationTitle: "🎯 सुझाई गई फसलें",
-                yieldLabel: "अपेक्षित उत्पादन (किलो)",
-                profitLabel: "अपेक्षित लाभ",
-                sustainabilityLabel: "स्थिरता स्कोर",
-                timingLabel: "सबसे अच्छा रोपण समय",
-                aiChatTitle: "AI सहायक",
-                welcomeMessage: "नमस्ते! मैं आपका खेती सहायक हूं। झारखंड में फसल, मिट्टी या खेती के बारे में कुछ भी पूछें!",
-                sendBtn: "📤 भेजें",
-                weatherTitle: "🌤️ आज का मौसम",
-                marketPricesTitle: "बाजार भाव"
-            }
-        };
+<div class="stat-card">
+<div class="stat-value" id="expectedProfit">₹0</div>
+<div class="stat-label" id="profitLabel">Expected Profit</div>
+</div>
 
-        function toggleLanguage() {
-            isHindi = !isHindi;
-            const lang = isHindi ? 'hindi' : 'english';
-            const langBtn = document.querySelector('.language-toggle');
-            
-            langBtn.textContent = isHindi ? 'English' : 'हिंदी';
-            
-            // Update all text elements
-            for (const [key, value] of Object.entries(translations[lang])) {
-                const element = document.getElementById(key);
-                if (element) {
-                    element.textContent = value;
-                }
-            }
-        }
+<div class="stat-card">
+<div class="stat-value" id="sustainabilityScore">0</div>
+<div class="stat-label" id="sustainabilityLabel">Sustainability</div>
+</div>
 
-        // Tab switching
-        function switchTab(tabName) {
-            // Hide all tab contents
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs
-            document.querySelectorAll('.tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show selected tab content and mark tab as active
-            document.getElementById(tabName + 'Content').classList.add('active');
-            event.target.closest('.tab').classList.add('active');
-        }
+<div class="stat-card">
+<div class="stat-value" id="plantingTime">-</div>
+<div class="stat-label" id="timingLabel">Planting Time</div>
+</div>
+</div>
 
-        // Crop recommendation system
-        const cropDatabase = {
-            red: {
-                bestCrops: ['Rice', 'Maize', 'Finger Millet'],
-                yield: [2500, 2800, 1200],
-                profit: [45000, 38000, 25000],
-                sustainability: [85, 78, 92],
-                timing: ['June-July', 'March-April', 'June-July']
-            },
-            black: {
-                bestCrops: ['Cotton', 'Sugarcane', 'Wheat'],
-                yield: [1800, 45000, 3200],
-                profit: [55000, 85000, 48000],
-                sustainability: [75, 68, 88],
-                timing: ['May-June', 'February-March', 'November-December']
-            },
-            clay: {
-                bestCrops: ['Rice', 'Wheat', 'Pulses'],
-                yield: [3200, 3500, 1100],
-                profit: [52000, 55000, 35000],
-                sustainability: [90, 85, 95],
-                timing: ['June-July', 'November-December', 'October-November']
-            },
-            sandy: {
-                bestCrops: ['Groundnut', 'Millet', 'Pulses'],
-                yield: [2200, 1800, 1300],
-                profit: [42000, 28000, 38000],
-                sustainability: [80, 88, 92],
-                timing: ['May-June', 'June-July', 'October-November']
-            }
-        };
+<div id="detailedAdvice"></div>
+</div>
+</div>
+</div>
 
-        function getCropRecommendation() {
-            const soilType = document.getElementById('soilType').value;
-            const farmSize = parseFloat(document.getElementById('farmSize').value);
-            const budget = parseInt(document.getElementById('budget').value);
-            const district = document.getElementById('district').value;
+<!-- CHAT -->
+<div id="chatContent" class="tab-content">
+<div class="feature-card">
+<h3><span class="icon">🤖</span><span id="aiChatTitle">AI Assistant</span></h3>
 
-            if (!soilType || !farmSize || !budget || !district) {
-                alert(isHindi ? 'कृपया सभी फील्ड भरें!' : 'Please fill all fields!');
-                return;
-            }
+<div class="chat-container" id="chatContainer"></div>
 
-            const recommendations = cropDatabase[soilType];
-            if (!recommendations) {
-                alert(isHindi ? 'इस मिट्टी के प्रकार के लिए डेटा उपलब्ध नहीं है!' : 'Data not available for this soil type!');
-                return;
-            }
+<div class="input-group">
+<input type="text" id="chatInput" placeholder="Ask your farming question..." onkeypress="handleChatKeypress(event)">
+<button class="btn" onclick="sendMessage()">📤 Send</button>
+</div>
+</div>
+</div>
 
-            // Show recommendations
-            document.getElementById('recommendationResults').style.display = 'block';
-            
-            // Display crops
-            const cropList = document.getElementById('cropList');
-            cropList.innerHTML = '';
-            
-            recommendations.bestCrops.forEach((crop, index) => {
-                const cropDiv = document.createElement('div');
-                cropDiv.className = 'crop-recommendation';
-                cropDiv.innerHTML = `
-                    <div class="crop-icon">${getCropIcon(crop)}</div>
-                    <div>
-                        <strong>${crop}</strong>
-                        <p style="font-size: 0.9rem; color: #666;">
-                            ${isHindi ? 'उत्पादन' : 'Yield'}: ${(recommendations.yield[index] * farmSize).toLocaleString()} kg<br>
-                            ${isHindi ? 'लाभ' : 'Profit'}: ₹${(recommendations.profit[index] * farmSize).toLocaleString()}
-                        </p>
-                    </div>
-                `;
-                cropList.appendChild(cropDiv);
-            });
+<!-- WEATHER -->
+<div id="weatherContent" class="tab-content">
+<div class="weather-info">
+<h3 id="weatherTitle">🌤️ Today's Weather</h3>
+<p>Temperature: <span id="temperature">28°C</span></p>
+<p>Humidity: <span id="humidity">65%</span></p>
+<p>Rainfall: <span id="rainfall">Light</span></p>
+<p>Wind: <span id="windSpeed">12 km/h</span></p>
+</div>
+</div>
 
-            // Update statistics (using first crop as primary recommendation)
-            document.getElementById('expectedYield').textContent = (recommendations.yield[0] * farmSize).toLocaleString();
-            document.getElementById('expectedProfit').textContent = '₹' + (recommendations.profit[0] * farmSize).toLocaleString();
-            document.getElementById('sustainabilityScore').textContent = recommendations.sustainability[0] + '/100';
-            document.getElementById('plantingTime').textContent = recommendations.timing[0];
+</div>
 
-            // Add detailed advice
-            const advice = document.getElementById('detailedAdvice');
-            advice.innerHTML = `
-                <h4 style="color: #2E7D32; margin-bottom: 10px;">
-                    ${isHindi ? '📋 विस्तृत सलाह:' : '📋 Detailed Advice:'}
-                </h4>
-                <p style="margin-bottom: 8px;">
-                    • ${isHindi ? `${district} जिले में ${soilType} मिट्टी के लिए ${recommendations.bestCrops[0]} सबसे अच्छा विकल्प है।` : `${recommendations.bestCrops[0]} is the best option for ${soilType} soil in ${district} district.`}
-                </p>
-                <p style="margin-bottom: 8px;">
-                    • ${isHindi ? `रोपण का सबसे अच्छा समय: ${recommendations.timing[0]}` : `Best planting time: ${recommendations.timing[0]}`}
-                </p>
-                <p style="margin-bottom: 8px;">
-                    • ${isHindi ? `आपके ₹${budget.toLocaleString()} बजट में यह फसल उपयुक्त है।` : `This crop is suitable for your ₹${budget.toLocaleString()} budget.`}
-                </p>
-                <p>
-                    • ${isHindi ? 'नियमित सिंचाई और उर्वरक का उपयोग करें।' : 'Use regular irrigation and fertilizers.'}
-                </p>
-            `;
+<div class="offline-indicator" id="offlineIndicator">📶 Offline Mode</div>
+</div>
 
-            // Scroll to results
-            document.getElementById('recommendationResults').scrollIntoView({ behavior: 'smooth' });
-        }
+<script src="crop-data.js"></script>
+<script src="app.js"></script>
 
-        function getCropIcon(crop) {
-            const icons = {
-                'Rice': '🌾',
-                'Maize': '🌽',
-                'Wheat': '🌾',
-                'Cotton': '🌿',
-                'Sugarcane': '🎋',
-                'Pulses': '🫘',
-                'Groundnut': '🥜',
-                'Millet': '🌾',
-                'Finger Millet': '🌾'
-            };
-            return icons[crop] || '🌱';
-        }
+<script>
+let isHindi=false;
 
-        // Chat functionality
-        const chatResponses = {
-            english: {
-                'soil': 'For soil testing, I recommend checking pH levels and nutrient content. Red soil in Jharkhand is good for rice and maize.',
-                'rice': 'Rice grows best in clay soil with good water retention. Plant during June-July for best results.',
-                'weather': 'Current weather looks good for farming. Humidity is at 65% which is ideal for most crops.',
-                'fertilizer': 'Use organic fertilizer like cow dung and compost. NPK ratio should be 4:2:1 for most crops.',
-                'pest': 'For pest control, use neem oil spray and maintain crop rotation. Check plants weekly.',
-                'default': 'I can help you with soil analysis, crop selection, weather information, and farming tips. What would you like to know?'
-            },
-            hindi: {
-                'soil': 'मिट्टी की जांच के लिए pH और पोषक तत्वों की जांच करें। झारखंड की लाल मिट्टी चावल और मक्का के लिए अच्छी है।',
-                'rice': 'चावल चिकनी मिट्टी में अच्छा उगता है। जून-जुलाई में बुआई करें।',
-                'weather': 'मौसम फसल के लिए अच्छा है। 65% नमी अधिकांश फसलों के लिए उपयुक्त है।',
-                'fertilizer': 'गोबर की खाद और कंपोस्ट का उपयोग करें। NPK अनुपात 4:2:1 रखें।',
-                'pest': 'कीट नियंत्रण के लिए नीम तेल का छिड़काव करें। फसल चक्र अपनाएं।',
-                'default': 'मैं मिट्टी विश्लेषण, फसल चयन, मौसम जानकारी और खेती की सलाह दे सकता हूं। आप क्या जानना चाहते हैं?'
-            }
-        };
+function switchTab(tabName){
+document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(tabName+'Content').classList.add('active');
+event.target.closest('.tab').classList.add('active');
+}
 
-        function sendMessage() {
-            const input = document.getElementById('chatInput');
-            const message = input.value.trim();
-            
-            if (message === '') return;
-            
-            // Add user message
-            addMessageToChat(message, 'user');
-            
-            // Generate bot response
-            setTimeout(() => {
-                const response = generateBotResponse(message);
-                addMessageToChat(response, 'bot');
-            }, 1000);
-            
-            input.value = '';
-        }
+/* CHAT */
+function sendMessage(){
+const input=document.getElementById('chatInput');
+if(!input.value.trim()) return;
+addMessage(input.value,'user');
+setTimeout(()=>addMessage("I can help with crops, soil, and farming advice.",'bot'),800);
+input.value='';
+}
 
-        function addMessageToChat(message, sender) {
-            const chatContainer = document.getElementById('chatContainer');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${sender}-message`;
-            messageDiv.textContent = message;
-            
-            chatContainer.appendChild(messageDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+function addMessage(msg,type){
+const chat=document.getElementById('chatContainer');
+const div=document.createElement('div');
+div.className='message '+(type==='user'?'user-message':'bot-message');
+div.textContent=msg;
+chat.appendChild(div);
+chat.scrollTop=chat.scrollHeight;
+}
 
-        function generateBotResponse(message) {
-            const lang = isHindi ? 'hindi' : 'english';
-            const responses = chatResponses[lang];
-            const lowerMessage = message.toLowerCase();
-            
-            // Simple keyword matching
-            if (lowerMessage.includes('soil') || lowerMessage.includes('मिट्टी')) {
-                return responses.soil;
-            } else if (lowerMessage.includes('rice') || lowerMessage.includes('चावल')) {
-                return responses.rice;
-            } else if (lowerMessage.includes('weather') || lowerMessage.includes('मौसम')) {
-                return responses.weather;
-            } else if (lowerMessage.includes('fertilizer') || lowerMessage.includes('खाद')) {
-                return responses.fertilizer;
-            } else if (lowerMessage.includes('pest') || lowerMessage.includes('कीट')) {
-                return responses.pest;
-            } else {
-                return responses.default;
-            }
-        }
+function handleChatKeypress(e){
+if(e.key==='Enter') sendMessage();
+}
 
-        function handleChatKeypress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
+/* WEATHER SIMULATION */
+function updateWeatherData(){
+document.getElementById('temperature').textContent=(25+Math.floor(Math.random()*5))+'°C';
+document.getElementById('humidity').textContent=(60+Math.floor(Math.random()*10))+'%';
+}
 
-        // Voice recognition
-        let isRecording = false;
-        let recognition;
+setInterval(updateWeatherData,300000);
+updateWeatherData();
 
-        function initializeVoiceRecognition() {
-            if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-                recognition = new SpeechRecognition();
-                recognition.continuous = false;
-                recognition.interimResults = false;
-                recognition.lang = isHindi ? 'hi-IN' : 'en-US';
-                
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript;
-                    document.getElementById('chatInput').value = transcript;
-                    stopVoiceRecording();
-                };
-                
-                recognition.onerror = function(event) {
-                    console.error('Speech recognition error:', event.error);
-                    stopVoiceRecording();
-                };
-                
-                recognition.onend = function() {
-                    stopVoiceRecording();
-                };
-            }
-        }
+console.log("Margadarshak UI Updated ✅");
+</script>
 
-        function toggleVoiceRecording() {
-            if (!recognition) {
-                initializeVoiceRecognition();
-            }
-            
-            if (isRecording) {
-                stopVoiceRecording();
-            } else {
-                startVoiceRecording();
-            }
-        }
-
-        function startVoiceRecording() {
-            if (recognition) {
-                recognition.lang = isHindi ? 'hi-IN' : 'en-US';
-                recognition.start();
-                isRecording = true;
-                document.getElementById('voiceBtn').classList.add('pulse');
-                document.getElementById('voiceBtn').innerHTML = '⏹️';
-            }
-        }
-
-        function stopVoiceRecording() {
-            if (recognition && isRecording) {
-                recognition.stop();
-                isRecording = false;
-                document.getElementById('voiceBtn').classList.remove('pulse');
-                document.getElementById('voiceBtn').innerHTML = '🎤';
-            }
-        }
-
-        // Offline functionality
-        let isOffline = false;
-        
-        function updateOnlineStatus() {
-            const indicator = document.getElementById('offlineIndicator');
-            
-            if (navigator.onLine) {
-                isOffline = false;
-                indicator.style.display = 'none';
-            } else {
-                isOffline = true;
-                indicator.style.display = 'block';
-                indicator.classList.remove('online-indicator');
-            }
-        }
-
-        // Weather simulation (in real app, this would fetch from API)
-        function updateWeatherData() {
-            const temperatures = [25, 26, 27, 28, 29, 30, 28, 26];
-            const humidities = [60, 65, 70, 68, 62, 58, 65, 72];
-            const rainfalls = ['None', 'Light', 'Moderate', 'Heavy'];
-            const windSpeeds = [8, 10, 12, 15, 18, 20, 14, 16];
-            
-            const now = new Date();
-            const dayIndex = now.getDay();
-            
-            document.getElementById('temperature').textContent = temperatures[dayIndex] + '°C';
-            document.getElementById('humidity').textContent = humidities[dayIndex] + '%';
-            document.getElementById('rainfall').textContent = rainfalls[Math.floor(Math.random() * rainfalls.length)];
-            document.getElementById('windSpeed').textContent = windSpeeds[dayIndex] + ' km/h';
-        }
-
-        // Market prices simulation (in real app, this would fetch from API)
-        function updateMarketPrices() {
-            const prices = {
-                rice: Math.floor(Math.random() * 5) + 23, // 23-28
-                wheat: Math.floor(Math.random() * 4) + 20, // 20-24
-                maize: Math.floor(Math.random() * 3) + 16, // 16-19
-                pulses: Math.floor(Math.random() * 20) + 70 // 70-90
-            };
-            
-            const marketContainer = document.getElementById('marketPrices');
-            marketContainer.innerHTML = `
-                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                    <span>Rice (चावल):</span>
-                    <strong>₹${prices.rice}/kg</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                    <span>Wheat (गेहूं):</span>
-                    <strong>₹${prices.wheat}/kg</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                    <span>Maize (मक्का):</span>
-                    <strong>₹${prices.maize}/kg</strong>
-                </div>
-                <div style="display: flex; justify-content: space-between; margin: 10px 0;">
-                    <span>Pulses (दाल):</span>
-                    <strong>₹${prices.pulses}/kg</strong>
-                </div>
-            `;
-        }
-
-        // Cache management for offline functionality
-        function cacheData() {
-            const appData = {
-                cropDatabase: cropDatabase,
-                lastUpdated: new Date().toISOString(),
-                userPreferences: {
-                    language: isHindi ? 'hindi' : 'english'
-                }
-            };
-            
-            // In a real app, this would use Service Worker and IndexedDB
-            localStorage.setItem('margadarshak-cache', JSON.stringify(appData));
-        }
-
-        function loadCachedData() {
-            const cached = localStorage.getItem('margadarshak-cache');
-            if (cached) {
-                const data = JSON.parse(cached);
-                if (data.userPreferences && data.userPreferences.language === 'hindi') {
-                    toggleLanguage();
-                }
-                return true;
-            }
-            return false;
-        }
-
-        // PWA Service Worker registration (for offline functionality)
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(function(registration) {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                        console.log('SW registration failed: ', registrationError);
-                    });
-            });
-        }
-
-        // Initialize app
-        document.addEventListener('DOMContentLoaded', function() {
-            // Load cached data
-            loadCachedData();
-            
-            // Update online/offline status
-            window.addEventListener('online', updateOnlineStatus);
-            window.addEventListener('offline', updateOnlineStatus);
-            updateOnlineStatus();
-            
-            // Update weather and market data
-            updateWeatherData();
-            updateMarketPrices();
-            
-            // Update data every 5 minutes
-            setInterval(() => {
-                if (!isOffline) {
-                    updateWeatherData();
-                    updateMarketPrices();
-                }
-            }, 300000);
-            
-            // Cache data every minute
-            setInterval(cacheData, 60000);
-            
-            // Initialize voice recognition
-            initializeVoiceRecognition();
-            
-            // Welcome message in chat
-            setTimeout(() => {
-                const welcomeMsg = isHindi ? 
-                    'नमस्ते! मैं आपका खेती सहायक हूं। झारखंड में खेती के बारे में कुछ भी पूछें!' :
-                    'Hello! I\'m your farming assistant. Ask me anything about farming in Jharkhand!';
-                addMessageToChat(welcomeMsg, 'bot');
-            }, 1000);
-        });
-
-        // Additional helper functions for enhanced functionality
-
-        // Image recognition placeholder (for future soil image analysis)
-        function analyzeSoilImage(imageFile) {
-            // This would integrate with TensorFlow.js or similar for actual image recognition
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({
-                        soilType: 'red',
-                        confidence: 0.85,
-                        recommendations: ['Rice', 'Maize']
-                    });
-                }, 2000);
-            });
-        }
-
-        // Weather-based crop recommendations
-        function getWeatherBasedRecommendations(weather) {
-            const currentTemp = parseInt(weather.temperature);
-            const currentHumidity = parseInt(weather.humidity);
-            
-            if (currentTemp > 30 && currentHumidity < 60) {
-                return {
-                    warning: isHindi ? 'गर्मी और कम नमी के कारण सिंचाई बढ़ाएं' : 'Increase irrigation due to high temperature and low humidity',
-                    crops: ['Millet', 'Groundnut']
-                };
-            } else if (currentHumidity > 80) {
-                return {
-                    warning: isHindi ? 'अधिक नमी के कारण फंगल रोग का खतरा' : 'Risk of fungal diseases due to high humidity',
-                    crops: ['Rice', 'Sugarcane']
-                };
-            }
-            
-            return {
-                message: isHindi ? 'मौसम फसल के लिए अनुकूल है' : 'Weather conditions are favorable for farming',
-                crops: []
-            };
-        }
-
-        // Yield prediction based on historical data
-        function predictYield(cropType, soilType, farmSize, weatherConditions) {
-            const baseYield = cropDatabase[soilType]?.yield[0] || 2000;
-            let adjustmentFactor = 1.0;
-            
-            // Adjust based on weather
-            if (weatherConditions.temperature > 35) adjustmentFactor *= 0.9;
-            if (weatherConditions.humidity > 80) adjustmentFactor *= 0.85;
-            if (weatherConditions.rainfall === 'Heavy') adjustmentFactor *= 1.1;
-            
-            return Math.round(baseYield * farmSize * adjustmentFactor);
-        }
-
-        // Fertilizer calculator
-        function calculateFertilizerNeeds(cropType, farmSize, soilType) {
-            const fertilizerData = {
-                'Rice': { N: 120, P: 60, K: 40 },
-                'Wheat': { N: 100, P: 50, K: 30 },
-                'Maize': { N: 140, P: 70, K: 50 },
-                'Pulses': { N: 25, P: 50, K: 25 }
-            };
-            
-            const needs = fertilizerData[cropType] || fertilizerData['Rice'];
-            
-            return {
-                nitrogen: Math.round(needs.N * farmSize),
-                phosphorus: Math.round(needs.P * farmSize),
-                potassium: Math.round(needs.K * farmSize),
-                cost: Math.round((needs.N + needs.P + needs.K) * farmSize * 12) // ₹12 per kg average
-            };
-        }
-
-        console.log('Margadarshak App Initialized Successfully! 🌱');
-    </script>
-
-    <!-- Service Worker for offline functionality -->
-    <script>
-        // Service Worker code (would be in separate file in production)
-        const CACHE_NAME = 'margadarshak-v1';
-        const urlsToCache = [
-            '/',
-            '/styles.css',
-            '/script.js',
-            // Add other assets
-        ];
-
-        // Install event
-        self.addEventListener('install', function(event) {
-            event.waitUntil(
-                caches.open(CACHE_NAME)
-                    .then(function(cache) {
-                        return cache.addAll(urlsToCache);
-                    })
-            );
-        });
-
-        // Fetch event
-        self.addEventListener('fetch', function(event) {
-            event.respondWith(
-                caches.match(event.request)
-                    .then(function(response) {
-                        // Return cached response if found
-                        if (response) {
-                            return response;
-                        }
-                        // Otherwise fetch from network
-                        return fetch(event.request);
-                    })
-            );
-        });
-    </script>
-
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="data:application/json,{
-        'name': 'Margadarshak - AI Crop Advisor',
-        'short_name': 'Margadarshak',
-        'description': 'AI-powered crop recommendation system for Jharkhand farmers',
-        'start_url': '/',
-        'display': 'standalone',
-        'background_color': '#4CAF50',
-        'theme_color': '#2E7D32',
-        'icons': [
-            {
-                'src': 'data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"%234CAF50\"/><text x=\"50\" y=\"60\" text-anchor=\"middle\" font-size=\"30\" fill=\"white\">🌱</text></svg>',
-                'sizes': '192x192',
-                'type': 'image/svg+xml'
-            }
-        ]
-    }">
 </body>
 </html>
