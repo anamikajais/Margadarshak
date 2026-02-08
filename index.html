@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Margadarshak - मार्गदर्शक</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    font-family:'Inter','Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#e8f5e9,#e3f2fd);
+    min-height:100vh;
+    color:#1f2937;
+}
+
+.container{
+    max-width:420px;
+    margin:auto;
+    background:#fff;
+    min-height:100vh;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(135deg,#1b5e20,#43a047);
+    color:white;
+    padding:22px;
+    text-align:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+}
+
+.header h1{font-size:1.6rem}
+.header p{opacity:.9;font-size:.9rem}
+
+.language-toggle{
+    position:absolute;
+    right:18px;
+    top:18px;
+    background:rgba(255,255,255,0.2);
+    border:none;
+    padding:6px 12px;
+    border-radius:20px;
+    color:white;
+    cursor:pointer;
+}
+
+/* CONTENT */
+.main-content{padding:20px}
+
+/* TABS */
+.tabs{
+    display:flex;
+    background:#f1f5f9;
+    border-radius:30px;
+    padding:6px;
+    margin-bottom:20px;
+}
+
+.tab{
+    flex:1;
+    text-align:center;
+    padding:10px;
+    border-radius:20px;
+    cursor:pointer;
+    transition:.25s;
+    font-weight:500;
+}
+
+.tab.active{
+    background:white;
+    color:#2e7d32;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+}
+
+/* CARDS */
+.feature-card,.recommendation-card{
+    background:rgba(255,255,255,0.85);
+    backdrop-filter:blur(10px);
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:16px;
+    border:1px solid rgba(0,0,0,0.05);
+    box-shadow:0 6px 18px rgba(0,0,0,0.06);
+}
+
+.feature-card h3{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    color:#1b5e20;
+    margin-bottom:12px;
+}
+
+.icon{
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:#43a047;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:white;
+}
+
+/* INPUTS */
+.input-group{margin-bottom:14px}
+
+.input-group label{
+    font-weight:600;
+    font-size:.9rem;
+}
+
+.input-group select,
+.input-group input{
+    width:100%;
+    padding:13px;
+    margin-top:6px;
+    border-radius:10px;
+    border:1.5px solid #e5e7eb;
+    font-size:15px;
+}
+
+.input-group select:focus,
+.input-group input:focus{
+    outline:none;
+    border-color:#43a047;
+}
+
+/* BUTTON */
+.btn{
+    background:linear-gradient(135deg,#43a047,#2e7d32);
+    color:white;
+    border:none;
+    padding:14px;
+    border-radius:30px;
+    font-size:15px;
+    cursor:pointer;
+    width:100%;
+}
+
+.btn:hover{
+    transform:translateY(-1px);
+    box-shadow:0 6px 14px rgba(46,125,50,.25);
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.stat-card{
+    background:#f9fafb;
+    border-radius:12px;
+    padding:14px;
+    text-align:center;
+}
+
+.stat-value{
+    font-size:1.4rem;
+    font-weight:700;
+    color:#2e7d32;
+}
+
+.stat-label{
+    font-size:.8rem;
+    color:#6b7280;
+}
+
+/* CHAT */
+.chat-container{
+    max-height:300px;
+    overflow-y:auto;
+    border-radius:12px;
+    background:#f8fafc;
+    padding:12px;
+}
+
+.message{
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:8px;
+}
+
+.user-message{
+    background:#43a047;
+    color:white;
+    margin-left:20%;
+}
+
+.bot-message{
+    background:white;
+    border:1px solid #e5e7eb;
+    margin-right:20%;
+}
+
+/* WEATHER */
+.weather-info{
+    background:linear-gradient(135deg,#1e88e5,#1565c0);
+    color:white;
+    border-radius:14px;
+    padding:16px;
+    text-align:center;
+}
+
+.offline-indicator{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    background:#ef4444;
+    color:white;
+    padding:10px 14px;
+    border-radius:20px;
+    font-size:.8rem;
+    display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<header class="header">
+<button class="language-toggle" onclick="toggleLanguage()">हिंदी</button>
+<h1 id="appTitle">Margadarshak</h1>
+<p id="appSubtitle">AI-Powered Crop Advisor for Jharkhand Farmers</p>
+</header>
+
+<div class="main-content">
+
+<!-- TABS -->
+<div class="tabs">
+<div class="tab active" onclick="switchTab('home')"><span id="homeTab">🏠 Home</span></div>
+<div class="tab" onclick="switchTab('chat')"><span id="chatTab">💬 Chat</span></div>
+<div class="tab" onclick="switchTab('weather')"><span id="weatherTab">🌤️ Weather</span></div>
+</div>
+
+<!-- HOME -->
+<div id="homeContent" class="tab-content active">
+
+<div class="feature-card">
+<h3><span class="icon">🌱</span><span id="soilAnalysisTitle">Soil Analysis</span></h3>
+
+<div class="input-group">
+<label id="districtLabel">Select Your District:</label>
+<select id="district">
+<option value="">Choose District</option>
+</select>
+</div>
+
+<div class="input-group">
+<label id="soilTypeLabel">Soil Type:</label>
+<select id="soilType">
+<option value="">Select Soil Type</option>
+<option value="red">Red Soil</option>
+<option value="black">Black Soil</option>
+<option value="clay">Clay Soil</option>
+<option value="sandy">Sandy Soil</option>
+</select>
+</div>
+
+<div class="input-group">
+<label id="farmSizeLabel">Farm Size (in acres):</label>
+<input type="number" id="farmSize">
+</div>
+
+<div class="input-group">
+<label id="budgetLabel">Budget (₹):</label>
+<input type="number" id="budget">
+</div>
+
+<button class="btn" onclick="getCropRecommendation()">
+<span id="getRecommendationBtn">🔍 Get Crop Recommendations</span>
+</button>
+</div>
+
+<div id="recommendationResults" style="display:none;">
+<div class="recommendation-card">
+<h3 id="recommendationTitle">🎯 Recommended Crops</h3>
+<div id="cropList"></div>
+
+<div class="grid">
+<div class="stat-card">
+<div class="stat-value" id="expectedYield">0</div>
+<div class="stat-label" id="yieldLabel">Expected Yield</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-value" id="expectedProfit">₹0</div>
+<div class="stat-label" id="profitLabel">Expected Profit</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-value" id="sustainabilityScore">0</div>
+<div class="stat-label" id="sustainabilityLabel">Sustainability</div>
+</div>
+
+<div class="stat-card">
+<div class="stat-value" id="plantingTime">-</div>
+<div class="stat-label" id="timingLabel">Planting Time</div>
+</div>
+</div>
+
+<div id="detailedAdvice"></div>
+</div>
+</div>
+</div>
+
+<!-- CHAT -->
+<div id="chatContent" class="tab-content">
+<div class="feature-card">
+<h3><span class="icon">🤖</span><span id="aiChatTitle">AI Assistant</span></h3>
+
+<div class="chat-container" id="chatContainer"></div>
+
+<div class="input-group">
+<input type="text" id="chatInput" placeholder="Ask your farming question..." onkeypress="handleChatKeypress(event)">
+<button class="btn" onclick="sendMessage()">📤 Send</button>
+</div>
+</div>
+</div>
+
+<!-- WEATHER -->
+<div id="weatherContent" class="tab-content">
+<div class="weather-info">
+<h3 id="weatherTitle">🌤️ Today's Weather</h3>
+<p>Temperature: <span id="temperature">28°C</span></p>
+<p>Humidity: <span id="humidity">65%</span></p>
+<p>Rainfall: <span id="rainfall">Light</span></p>
+<p>Wind: <span id="windSpeed">12 km/h</span></p>
+</div>
+</div>
+
+</div>
+
+<div class="offline-indicator" id="offlineIndicator">📶 Offline Mode</div>
+</div>
+
+<script src="crop-data.js"></script>
+<script src="app.js"></script>
+
+<script>
+let isHindi=false;
+
+function switchTab(tabName){
+document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+document.getElementById(tabName+'Content').classList.add('active');
+event.target.closest('.tab').classList.add('active');
+}
+
+/* CHAT */
+function sendMessage(){
+const input=document.getElementById('chatInput');
+if(!input.value.trim()) return;
+addMessage(input.value,'user');
+setTimeout(()=>addMessage("I can help with crops, soil, and farming advice.",'bot'),800);
+input.value='';
+}
+
+function addMessage(msg,type){
+const chat=document.getElementById('chatContainer');
+const div=document.createElement('div');
+div.className='message '+(type==='user'?'user-message':'bot-message');
+div.textContent=msg;
+chat.appendChild(div);
+chat.scrollTop=chat.scrollHeight;
+}
+
+function handleChatKeypress(e){
+if(e.key==='Enter') sendMessage();
+}
+
+/* WEATHER SIMULATION */
+function updateWeatherData(){
+document.getElementById('temperature').textContent=(25+Math.floor(Math.random()*5))+'°C';
+document.getElementById('humidity').textContent=(60+Math.floor(Math.random()*10))+'%';
+}
+
+setInterval(updateWeatherData,300000);
+updateWeatherData();
+
+console.log("Margadarshak UI Updated ✅");
+</script>
+
+</body>
+</html>
